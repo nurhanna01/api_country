@@ -9,5 +9,5 @@ const dbConfig = {
   host: process.env.DB_HOST,
   port: process.env.PORT,
 };
-// console.log(dbConfig);
+console.log(dbConfig);
 export default dbConfig;
