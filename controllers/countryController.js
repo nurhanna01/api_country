@@ -82,32 +82,13 @@ const countryController = {
   },
 
   putCountry: async (req, res) => {
-    try {
+  try {
       const { name, capital } = req.body;
       if (!name) {
         return res.status(400).json({
           status: 'error',
           statusCode: 400,
           message: 'Name is required',
-        });
-      }
-      const country_update = await country.findByPk(req.params.id);
-      if (!country_update) {
-        return res.status(404).json({
-          status: 'error',
-          statusCode: 404,
-          message: 'Country not found',
-        });
-      }
-
-      const checkDuplicateName = await country.findOne({ where: { name: name } });
-      console.log('tes', name);
-
-      if (checkDuplicateName) {
-        return res.json({
-          status: 'error',
-          statusCode: 400,
-          message: 'Country name already exists',
         });
       }
 
@@ -119,11 +100,18 @@ const countryController = {
           },
         }
       );
-      if (updateData === 1) {
+      if (updateData == 1) {
         res.json({
           status: 'success',
           statusCode: 201,
           message: 'Country updated successfully',
+        });
+      }
+      if (updateData == 0) {
+        res.status(404).json({
+          status: 'error',
+          statusCode: 404,
+          message: 'Country not found',
         });
       }
     } catch (err) {
